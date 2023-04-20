@@ -5,18 +5,21 @@ import { DarkMode } from 'accessible-astro-components'
 
 <div id="main-navigation" class="is-desktop py-8">
   <div class="container">
-    <a href="/" class="flex items-center gap-2 !no-underline">
-      <img src={(await import('../assets/img/logo.svg')).default} alt="Your Logo" width="47" height="37" />
-      <span class="font-bold">Accessible Astro</span>
-    </a>
     <div class="wrapper">
       <nav class="desktop-menu" aria-label="Main navigation desktop">
         <ul class="menu">
           <slot />
         </ul>
       </nav>
-      <DarkMode />
       <ResponsiveToggle />
+    </div>
+    <div class="logo-container">
+        <a href="/" class="flex items-center gap-2 !no-underline logo-link-container">
+            <img src={(await import('../assets/img/peavine-logo-alpha-black.png')).default} alt="Your Logo" width="450" />
+        </a>
+    </div>
+    <div class='darkmode-container'>
+        <DarkMode />
     </div>
     <nav class="mobile-menu" aria-label="Main navigation mobile">
       <ul class="menu">
@@ -209,10 +212,32 @@ import { DarkMode } from 'accessible-astro-components'
   @use '../assets/scss/base/outline' as *;
 
   #main-navigation {
+    background-color: var(--primary-background);
     > .container {
-      display: flex;
-      justify-content: space-between;
-      flex-wrap: wrap;
+      display: grid;
+    //   justify-content: space-between;
+    //   flex-wrap: wrap;
+        grid-template-columns: 1fr 1fr 1fr;
+        width: 100%;
+        > .darkmode-container {
+            display: flex;
+            justify-content: flex-end;
+        }
+
+      > .logo-container {
+        display: flex;
+        justify-content: center;
+        height: 50px;
+        > .logo-link-container {
+            height: 200px;
+            width: 200px;
+            padding: 8px;
+            background-color: var(--primary-background);
+            border-radius: 50%;
+            position: relative;
+            top: -20px;
+        }
+      }
     }
 
     &.is-desktop {
@@ -280,7 +305,7 @@ import { DarkMode } from 'accessible-astro-components'
         .has-dropdown > button:focus {
           text-decoration: underline;
           text-decoration-thickness: 1px;
-          text-decoration-style: wavy;
+          text-decoration-style: double;
           text-underline-offset: 7px;
         }
 
