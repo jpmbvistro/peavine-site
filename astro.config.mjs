@@ -6,20 +6,27 @@ import storyblok from "@storyblok/astro";
 
 import netlify from "@astrojs/netlify/functions";
 
+import { loadEnv } from 'vite';
+
+const env = loadEnv("", process.cwd(), 'STORYBLOK');
+
 // https://astro.build/config
 export default defineConfig({
-  integrations: [compress(), mdx(), tailwind(), storyblok({
-    accessToken: process.env.STORYBLOK_ACCESS_TOKEN,
-    bridge: true,
-    componentsDir: 'src',
-    region: 'us',
+  integrations: [compress(),tailwind(), storyblok({
+    accessToken: env.STORYBLOK_TOKEN,
+    apiOptions: {
+        region: 'us'
+    },
     components: {
-      page: 'storyblok/Page',
-      feature: 'storyblok/Feature',
-      grid: 'storyblok/Grid',
-      teaser: 'storyblok/Teaser',
-      blogPost: 'storyblok/BlogPost',
-      blogPostList: 'storyblok/BlogPostList'
+        article: 'storyblok/Article',
+        page: 'storyblok/Page',
+        feature: 'storyblok/Feature',
+        grid: 'storyblok/Grid',
+        teaser: 'storyblok/Teaser',
+        hero: 'storyblok/Hero',
+        project: 'storyblok/Project',
+        projectPreviewList: 'storyblok/ProjectPreviewList',
+        projectPreviewListCard: 'storyblok/ProjectPreviewListCard'
     }
   })],
   output: 'server',

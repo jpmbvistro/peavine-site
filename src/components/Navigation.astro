@@ -214,30 +214,39 @@ import { DarkMode } from 'accessible-astro-components'
   #main-navigation {
     background-color: var(--primary-background);
     > .container {
-      display: grid;
-    //   justify-content: space-between;
-    //   flex-wrap: wrap;
-        grid-template-columns: 1fr 1fr 1fr;
-        width: 100%;
+    //   display: grid;
+        box-sizing: border-box;
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        // grid-template-columns: 1fr 1fr 1fr;
+        min-width: 100%;
+        position: relative;
         > .darkmode-container {
             display: flex;
             justify-content: flex-end;
         }
 
-      > .logo-container {
-        display: flex;
-        justify-content: center;
-        height: 50px;
-        > .logo-link-container {
-            height: 200px;
-            width: 200px;
-            padding: 8px;
-            background-color: var(--primary-background);
-            border-radius: 50%;
-            position: relative;
-            top: -20px;
+        > .logo-container {
+            display: flex;
+            justify-content: center;
+            // height: 50px;
+            position: absolute;
+            width: 100%;
+            z-index: 20;
+            top: -40px;
+            > .logo-link-container {
+                height: 200px;
+                width: 200px;
+                padding: 8px;
+                background-color: var(--primary-background);
+                border-radius: 50%;
+                
+                > img {
+                    position: relative;
+                }
+            }
         }
-      }
     }
 
     &.is-desktop {

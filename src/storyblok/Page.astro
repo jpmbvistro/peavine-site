@@ -4,10 +4,20 @@ import StoryblokComponent from '@storyblok/astro/StoryblokComponent.astro'
 const { blok } = Astro.props
 ---
 
-<main {...storyblokEditable(blok)}>
-  {
-    blok.body?.map((blok) => {
-      return <StoryblokComponent blok={blok} />
-    })
+<div {...storyblokEditable(blok)} class='storyblok-element'>
+    {
+      blok.body?.map((blok) => {
+        return <StoryblokComponent blok={blok} />
+      })
   }
-</main>
+</div>
+
+<style lang="scss">
+    .storyblok-element {
+        height: 100%;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+    }
+</style>

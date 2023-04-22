@@ -1,0 +1,43 @@
+---
+import { storyblokEditable } from '@storyblok/astro'
+import { useStoryblokApi } from '@storyblok/astro'
+import StoryblokComponent from '@storyblok/astro/StoryblokComponent.astro';
+
+const storyblokApi = useStoryblokApi();
+
+const { blok } = Astro.props
+
+const { data } = await storyblokApi.get('cdn/stories', {
+  version: import.meta.env.DEV ? "draft" : "published",
+  content_type: 'project',
+  starts_with: 'projects/',
+  sort_by: blok.sortOrder,
+  per_page: blok.cardCount,
+  page: 1,
+})
+console.log('LIST', data)
+console.log('BLOK List', blok)
+const projects = data.stories.map(story => {
+  return {
+    title: story.content.title,
+    date: new Date(story.published_at).toLocaleDateString("en-US", {dateStyle: "full"}),
+    description: story.content.description,
+    slug: story.full_slug,
+  }
+})
+
+---
+<section {...storyblokEditable(blok)}>
+    <h1>Latest</h1>
+    <ul >
+        {data.stories.map(project => {
+            console.log('CONTENT', project.content)
+            return (
+                <li>
+                    {<StoryblokComponent blok={project.content} />}
+                </li>
+            )
+        })}
+    </ul>
+</section>
+

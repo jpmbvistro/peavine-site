@@ -1,0 +1,11 @@
+---
+import { storyblokEditable } from '@storyblok/astro'
+const { blok } = Astro.props
+console.log('card', blok)
+---
+<article {...storyblokEditable(blok)}>
+    {console.log('BLOK')}
+  <!-- <h1>{blok.title}</h1>
+  <p>{blok.description}</p>
+  <Fragment set:html={content} /> -->
+</article>
